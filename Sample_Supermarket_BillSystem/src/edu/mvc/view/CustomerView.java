@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author tharidu dilshan
  */
 public class CustomerView extends javax.swing.JFrame {
-    
+
     private CustomerController customerController;
 
     /**
@@ -140,6 +140,11 @@ public class CustomerView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TableCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableCustomerMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TableCustomer);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -251,6 +256,10 @@ public class CustomerView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonSaveActionPerformed
 
+    private void TableCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableCustomerMouseClicked
+        searchCustomer();        // TODO add your handling code here:
+    }//GEN-LAST:event_TableCustomerMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -325,7 +334,7 @@ public class CustomerView extends javax.swing.JFrame {
         dto.setCity(TextCity.getText());
         dto.setProvince(TextProvince.getText());
         dto.setZip(TextZip.getText());
-        
+
         try {
             String result = customerController.saveCustomer(dto);
             System.out.println(result);
@@ -341,22 +350,22 @@ public class CustomerView extends javax.swing.JFrame {
     private void loadCustomers() {
         try {
             String columns[] = {"ID", "Name", "Address", "Salary", "Zip Code"};
-            
+
             DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
-                
+
                 @Override
                 public boolean isCellEditable(int row, int column) {
                     return false;
                 }
-                
+
             };
-            
+
             TableCustomer.setModel(dtm);
-            
+
             ArrayList<CustomerDto> customerDtos = customerController.loadCustomer();
-            
+
             for (CustomerDto customerDto : customerDtos) {
-                Object rowData[] = {customerDto.getCustId(), customerDto.getTitle() + " " + customerDto.getName(), customerDto.getAddress() + " " + customerDto.getCity(),customerDto.getSalary(), customerDto.getZip()};
+                Object rowData[] = {customerDto.getCustId(), customerDto.getTitle() + " " + customerDto.getName(), customerDto.getAddress() + " " + customerDto.getCity(), customerDto.getSalary(), customerDto.getZip()};
                 dtm.addRow(rowData);
             }
         } catch (Exception ex) {
@@ -373,6 +382,31 @@ public class CustomerView extends javax.swing.JFrame {
         TextAddress.setText("");
         TextCity.setText("");
         TextProvince.setText("");
-        TextZip.setText("");    
+        TextZip.setText("");
+    }
+
+    private void searchCustomer() {
+        String CustId = TableCustomer.getValueAt(TableCustomer.getSelectedRow(), 0).toString();
+        try {
+            
+            CustomerDto dto = customerController.searchCustomer(CustId);
+
+            if (dto != null) {
+                TextCustId.setText(dto.getCustId());
+                TextTitle.setText(dto.getTitle());
+                TextName.setText(dto.getName());
+                TextDOB.setText(dto.getDob());
+                TextSalary.setText(dto.getSalary().toString());
+                TextAddress.setText(dto.getAddress());
+                TextCity.setText(dto.getCity());
+                TextProvince.setText(dto.getProvince());
+                TextZip.setText(dto.getZip());
+            } else {
+                JOptionPane.showMessageDialog(this, "Customer Not Found");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

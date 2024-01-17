@@ -30,4 +30,8 @@ public class CustomerController {
         return customerModel.loadCustomer();
     }
     
+    public CustomerDto searchCustomer(String CustId) throws Exception{
+        return customerModel.searchCustomer(CustId);
+    }
+    
 }

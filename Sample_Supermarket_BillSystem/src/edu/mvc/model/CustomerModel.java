@@ -73,6 +73,7 @@ public class CustomerModel {
         Connection connection = DBConnection.getInstance().getConnection();
         String sql = "SELECT * FROM customer WHERE CustId = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, CustId);
         
         ResultSet rst = statement.executeQuery();
         
