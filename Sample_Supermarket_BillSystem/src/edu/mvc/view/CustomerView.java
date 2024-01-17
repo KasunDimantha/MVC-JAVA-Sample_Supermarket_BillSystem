@@ -373,8 +373,6 @@ public class CustomerView extends javax.swing.JFrame {
         TextAddress.setText("");
         TextCity.setText("");
         TextProvince.setText("");
-        TextZip.setText("");
-        
-        
+        TextZip.setText("");    
     }
 }
