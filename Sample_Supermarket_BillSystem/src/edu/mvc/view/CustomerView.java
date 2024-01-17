@@ -9,6 +9,7 @@ import edu.mvc.dto.CustomerDto;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,6 +25,7 @@ public class CustomerView extends javax.swing.JFrame {
     public CustomerView() {
         this.customerController = new CustomerController();
         initComponents();
+        loadCustomers();
     }
 
     /**
@@ -59,7 +61,7 @@ public class CustomerView extends javax.swing.JFrame {
         ButtonUpdate = new javax.swing.JButton();
         ButtonSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TableCustomer = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,7 +128,7 @@ public class CustomerView extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TableCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -137,7 +139,7 @@ public class CustomerView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TableCustomer);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -296,6 +298,7 @@ public class CustomerView extends javax.swing.JFrame {
     private javax.swing.JLabel LabelSalary;
     private javax.swing.JLabel LabelTitle;
     private javax.swing.JLabel LabelZip;
+    private javax.swing.JTable TableCustomer;
     private javax.swing.JTextField TextAddress;
     private javax.swing.JTextField TextCity;
     private javax.swing.JTextField TextCustId;
@@ -307,7 +310,6 @@ public class CustomerView extends javax.swing.JFrame {
     private javax.swing.JTextField TextZip;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
     private void saveCustomer() {
@@ -330,5 +332,20 @@ public class CustomerView extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
+    }
+
+    private void loadCustomers() {
+        String columns[] = {"ID", "Name", "Address", "Salary", "Zip Code"};
+        
+        DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+        };
+        
+        TableCustomer.setModel(dtm);
     }
 }
