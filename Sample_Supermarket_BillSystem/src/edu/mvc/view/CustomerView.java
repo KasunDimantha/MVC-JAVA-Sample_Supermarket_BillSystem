@@ -6,6 +6,7 @@ package edu.mvc.view;
 
 import edu.mvc.controller.CustomerController;
 import edu.mvc.dto.CustomerDto;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -246,7 +247,8 @@ public class CustomerView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSaveActionPerformed
-        saveCustomer();    // TODO add your handling code here:
+        saveCustomer();
+        loadCustomers();// TODO add your handling code here:
     }//GEN-LAST:event_ButtonSaveActionPerformed
 
     /**
@@ -335,17 +337,28 @@ public class CustomerView extends javax.swing.JFrame {
     }
 
     private void loadCustomers() {
-        String columns[] = {"ID", "Name", "Address", "Salary", "Zip Code"};
-        
-        DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+        try {
+            String columns[] = {"ID", "Name", "Address", "Salary", "Zip Code"};
+            
+            DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
+                
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+                
+            };
+            
+            TableCustomer.setModel(dtm);
+            
+            ArrayList<CustomerDto> customerDtos = customerController.loadCustomer();
+            
+            for (CustomerDto customerDto : customerDtos) {
+                Object rowData[] = {customerDto.getCustId(), customerDto.getTitle() + " " + customerDto.getName(), customerDto.getAddress() + " " + customerDto.getCity(),customerDto.getSalary(), customerDto.getZip()};
+                dtm.addRow(rowData);
             }
-
-        };
-        
-        TableCustomer.setModel(dtm);
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
