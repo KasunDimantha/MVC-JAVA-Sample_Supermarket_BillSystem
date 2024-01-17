@@ -19,7 +19,7 @@ public class CustomerModel {
     public String saveCustomer(CustomerDto customerDto) throws ClassNotFoundException, SQLException{
         Connection connection = DBConnection.getInstance().getConnection();
         
-        String sql = "INSERt INTO customer VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERt INTO customer VALUES(?,?,?,?,?,?,?,?,?)";
         
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, customerDto.getCustId());

@@ -4,10 +4,25 @@
  */
 package edu.mvc.controller;
 
+import edu.mvc.dto.CustomerDto;
+import edu.mvc.model.CustomerModel;
+import java.sql.SQLException;
+
 /**
  *
  * @author tharidu dilshan
  */
 public class CustomerController {
+    
+    private CustomerModel customerModel;
+
+    public CustomerController() {
+        
+        customerModel = new CustomerModel();
+    }
+    
+    public String saveCustomer(CustomerDto customerDto) throws Exception{
+        return customerModel.saveCustomer(customerDto);
+    } 
     
 }

@@ -4,16 +4,25 @@
  */
 package edu.mvc.view;
 
+import edu.mvc.controller.CustomerController;
+import edu.mvc.dto.CustomerDto;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tharidu dilshan
  */
 public class CustomerView extends javax.swing.JFrame {
+    
+    private CustomerController customerController;
 
     /**
      * Creates new form CustomerView
      */
     public CustomerView() {
+        this.customerController = new CustomerController();
         initComponents();
     }
 
@@ -111,6 +120,11 @@ public class CustomerView extends javax.swing.JFrame {
 
         ButtonSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ButtonSave.setText("Save");
+        ButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSaveActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -173,8 +187,8 @@ public class CustomerView extends javax.swing.JFrame {
                         .addComponent(LabelCustID, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TextCustId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(LabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(LabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TextTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -228,6 +242,10 @@ public class CustomerView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSaveActionPerformed
+        saveCustomer();    // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,4 +309,26 @@ public class CustomerView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void saveCustomer() {
+        CustomerDto dto = new CustomerDto();
+        dto.setCustId(TextCustId.getText());
+        dto.setTitle(TextTitle.getText());
+        dto.setName(TextName.getText());
+        dto.setAddress(TextAddress.getText());
+        dto.setDob(TextDOB.getText());
+        dto.setSalary(Double.parseDouble(TextSalary.getText()));
+        dto.setCity(TextCity.getText());
+        dto.setProvince(TextProvince.getText());
+        dto.setZip(TextZip.getText());
+        
+        try {
+            String result = customerController.saveCustomer(dto);
+            System.out.println(result);
+            JOptionPane.showMessageDialog(this, result);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
 }
