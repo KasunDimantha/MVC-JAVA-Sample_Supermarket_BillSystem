@@ -14,10 +14,12 @@ public class CustomerDto {
     private String name;
     private String dob;
     private Double salary;
+    private String address;
     private String city;
     private String province;
     private String zip;
 
+    
     /**
      * @return the custId
      */
@@ -133,12 +135,13 @@ public class CustomerDto {
     public CustomerDto() {
     }
 
-    public CustomerDto(String custId, String title, String name, String dob, Double salary, String city, String province, String zip) {
+    public CustomerDto(String custId, String title, String name, String dob, Double salary, String address, String city, String province, String zip) {
         this.custId = custId;
         this.title = title;
         this.name = name;
         this.dob = dob;
         this.salary = salary;
+        this.address = address;
         this.city = city;
         this.province = province;
         this.zip = zip;
@@ -146,7 +149,23 @@ public class CustomerDto {
 
     @Override
     public String toString() {
-        return "CustomerDto{" + "custId=" + custId + ", title=" + title + ", name=" + name + ", dob=" + dob + ", salary=" + salary + ", city=" + city + ", province=" + province + ", zip=" + zip + '}';
+        return "CustomerDto{" + "custId=" + custId + ", title=" + title + ", name=" + name + ", dob=" + dob + ", salary=" + salary + ", address=" + address + ", city=" + city + ", province=" + province + ", zip=" + zip + '}';
+    }
+
+    
+
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
     }
     
     
