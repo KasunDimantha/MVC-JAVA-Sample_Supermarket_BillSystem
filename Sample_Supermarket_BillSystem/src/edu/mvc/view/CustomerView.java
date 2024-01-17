@@ -248,7 +248,7 @@ public class CustomerView extends javax.swing.JFrame {
 
     private void ButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSaveActionPerformed
         saveCustomer();
-        loadCustomers();// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_ButtonSaveActionPerformed
 
     /**
@@ -330,6 +330,8 @@ public class CustomerView extends javax.swing.JFrame {
             String result = customerController.saveCustomer(dto);
             System.out.println(result);
             JOptionPane.showMessageDialog(this, result);
+            loadCustomers();
+            clear();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -360,5 +362,19 @@ public class CustomerView extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void clear() {
+        TextCustId.setText("");
+        TextTitle.setText("");
+        TextName.setText("");
+        TextDOB.setText("");
+        TextSalary.setText("");
+        TextAddress.setText("");
+        TextCity.setText("");
+        TextProvince.setText("");
+        TextZip.setText("");
+        
+        
     }
 }
