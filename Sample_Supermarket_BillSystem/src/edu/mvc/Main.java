@@ -5,6 +5,7 @@
 package edu.mvc;
 
 import edu.mvc.view.CustomerView;
+import edu.mvc.view.ItemView;
 
 /**
  *
@@ -12,8 +13,8 @@ import edu.mvc.view.CustomerView;
  */
 public class Main {
     public static void main(String[] args) {
-        new CustomerView().setVisible(true);
-       // new ItemView().setVisible(true);
+        //new CustomerView().setVisible(true);
+        new ItemView().setVisible(true);
         //new OrderView().setVisible(true);
     }
 }
