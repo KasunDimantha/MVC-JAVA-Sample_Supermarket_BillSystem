@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package edu.mvc.view;
+import edu.mvc.view.CustomerView;
 
 /**
  *
@@ -205,7 +206,7 @@ public class ItemView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonUpdateActionPerformed
 
     private void ButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSaveActionPerformed
-        // TODO add your handling code here:
+        saveItem();
     }//GEN-LAST:event_ButtonSaveActionPerformed
 
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
@@ -266,4 +267,8 @@ public class ItemView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
+    private void saveItem() {
+        
+    }
 }
