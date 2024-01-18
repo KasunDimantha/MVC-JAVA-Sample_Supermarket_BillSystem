@@ -104,6 +104,11 @@ public class ItemView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TableItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableItemMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TableItem);
 
         ButtonUpdate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -225,6 +230,10 @@ public class ItemView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
+    private void TableItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableItemMouseClicked
+        searchItem();
+    }//GEN-LAST:event_TableItemMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -331,5 +340,9 @@ public class ItemView extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void searchItem() {
+        
     }
 }

@@ -54,4 +54,30 @@ public class ItemModel {
         }
         return itemDtos;
     }
+    
+    public ItemDto searchItem(String id) throws Exception {
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "SELECT *FROM item WHERE ItemCode = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, id);
+        
+        ResultSet rst = statement.executeQuery();
+        
+        ItemDto dto = null;
+        
+        while(rst.next()) {
+            dto = new ItemDto();
+            dto.setId(rst.getString("ItemCode"));
+            dto.setDescription(rst.getString("Description"));
+            dto.setPackSize(rst.getString("PackSize"));
+            dto.setUnitPrice(Double.parseDouble(rst.getString("UnitPrice")));
+            dto.setQoh(Integer.parseInt(rst.getString("QtyOnHand")));
+        }
+        return dto;
+    }
+
+
+
+
+
 }
