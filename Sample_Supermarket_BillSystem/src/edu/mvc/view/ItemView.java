@@ -23,6 +23,7 @@ public class ItemView extends javax.swing.JFrame {
     public ItemView() {
         this.itemController = new ItemController();
         initComponents();
+        loadItem();
     }
 
     /**
@@ -287,6 +288,7 @@ public class ItemView extends javax.swing.JFrame {
             String result = itemController.saveItem(dto);
             System.out.println(result);
             JOptionPane.showMessageDialog(this, result);
+            loadItem();
             clear();
         } catch (Exception ex) {
             Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
@@ -303,6 +305,6 @@ public class ItemView extends javax.swing.JFrame {
     }
 
     private void loadItem() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 }
