@@ -117,6 +117,11 @@ public class CustomerView extends javax.swing.JFrame {
 
         ButtonDelete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ButtonDelete.setText("Delete");
+        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonDeleteActionPerformed(evt);
+            }
+        });
 
         ButtonUpdate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ButtonUpdate.setText("Update");
@@ -268,6 +273,10 @@ public class CustomerView extends javax.swing.JFrame {
     private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed
         updateCustomer();
     }//GEN-LAST:event_ButtonUpdateActionPerformed
+
+    private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
+        deleteCustomer();
+    }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -441,5 +450,9 @@ public class CustomerView extends javax.swing.JFrame {
             Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
+    }
+
+    private void deleteCustomer() {
+        
     }
 }

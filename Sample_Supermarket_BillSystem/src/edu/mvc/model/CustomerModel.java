@@ -115,5 +115,18 @@ public class CustomerModel {
             return "Update Fail";
         }
     }
+    
+    public String deleteCustomer(String id) throws Exception{
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "DELETE FROM customer WHERE CustID = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, id);
+        
+        if (statement.executeUpdate() > 0) {
+            return "Success";
+        } else {
+            return "Fail";
+        }
+    }
 
 }
