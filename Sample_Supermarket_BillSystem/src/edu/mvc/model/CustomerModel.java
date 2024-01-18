@@ -94,5 +94,26 @@ public class CustomerModel {
         return dto;
     }
 
+    public String updateCustomer(CustomerDto customerDto) throws Exception{
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "UPDATE customer SET CustTitle = ?, CustName = ?, DOB = ?, salary = ?, CustAddress = ?, City = ?, Province = ?, PostalCode = ? WHERE CustID = ?";
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, customerDto.getTitle());
+        statement.setString(2, customerDto.getName());
+        statement.setString(3, customerDto.getDob());
+        statement.setDouble(4, customerDto.getSalary());
+        statement.setString(5, customerDto.getAddress());
+        statement.setString(6, customerDto.getCity());
+        statement.setString(7, customerDto.getProvince());
+        statement.setString(8, customerDto.getZip());
+        statement.setString(9, customerDto.getCustId());
+        
+        if(statement.executeUpdate() > 0){
+            return "Succesfully Updated";
+        } else {
+            return "Update Fail";
+        }
+    }
 
 }

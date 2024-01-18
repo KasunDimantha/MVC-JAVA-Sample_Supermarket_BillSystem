@@ -34,4 +34,8 @@ public class CustomerController {
         return customerModel.searchCustomer(CustId);
     }
     
+    public String updateCustomer(CustomerDto customerDto) throws Exception{
+        return customerModel.updateCustomer(customerDto);
+    }
+    
 }

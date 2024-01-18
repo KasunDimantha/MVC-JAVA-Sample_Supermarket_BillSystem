@@ -120,6 +120,11 @@ public class CustomerView extends javax.swing.JFrame {
 
         ButtonUpdate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ButtonUpdate.setText("Update");
+        ButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonUpdateActionPerformed(evt);
+            }
+        });
 
         ButtonSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ButtonSave.setText("Save");
@@ -259,6 +264,10 @@ public class CustomerView extends javax.swing.JFrame {
     private void TableCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableCustomerMouseClicked
         searchCustomer();        // TODO add your handling code here:
     }//GEN-LAST:event_TableCustomerMouseClicked
+
+    private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed
+        updateCustomer();
+    }//GEN-LAST:event_ButtonUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,5 +417,29 @@ public class CustomerView extends javax.swing.JFrame {
             Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private void updateCustomer() {
+        try {
+            CustomerDto dto = new CustomerDto();
+            dto.setCustId(TextCustId.getText());
+            dto.setTitle(TextTitle.getText());
+            dto.setName(TextName.getText());
+            dto.setAddress(TextAddress.getText());
+            dto.setDob(TextDOB.getText());
+            dto.setSalary(Double.parseDouble(TextSalary.getText()));
+            dto.setCity(TextCity.getText());
+            dto.setProvince(TextProvince.getText());
+            dto.setZip(TextZip.getText());
+            
+            String result = customerController.updateCustomer(dto);
+            System.out.println(result);
+            JOptionPane.showMessageDialog(this, result);
+            loadCustomers();
+            clear();
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
 }
