@@ -287,9 +287,22 @@ public class ItemView extends javax.swing.JFrame {
             String result = itemController.saveItem(dto);
             System.out.println(result);
             JOptionPane.showMessageDialog(this, result);
+            clear();
         } catch (Exception ex) {
             Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
+    }
+    
+    private void clear(){
+        TextItemID.setText("");
+        TextDescription.setText("");
+        TextIPackSize.setText("");
+        TextIUnitPrice.setText("");
+        TextIQOH.setText("");
+    }
+
+    private void loadItem() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
