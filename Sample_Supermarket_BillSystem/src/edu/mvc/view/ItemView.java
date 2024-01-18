@@ -3,7 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package edu.mvc.view;
+import edu.mvc.dto.ItemDto;
 import edu.mvc.view.CustomerView;
+import edu.mvc.controller.ItemController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -11,10 +16,12 @@ import edu.mvc.view.CustomerView;
  */
 public class ItemView extends javax.swing.JFrame {
 
+    private ItemController itemController;
     /**
      * Creates new form ItemView
      */
     public ItemView() {
+        this.itemController = new ItemController();
         initComponents();
     }
 
@@ -269,6 +276,20 @@ public class ItemView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void saveItem() {
+        ItemDto dto = new ItemDto();
+        dto.setId(TextItemID.getText());
+        dto.setDescription(TextDescription.getText());
+        dto.setPackSize(TextIPackSize.getText());
+        dto.setUnitPrice(Double.parseDouble(TextIUnitPrice.getText()));
+        dto.setQoh(Integer.parseInt(TextIQOH.getText()));
         
+        try {
+            String result = itemController.saveItem(dto);
+            System.out.println(result);
+            JOptionPane.showMessageDialog(this, result);
+        } catch (Exception ex) {
+            Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
 }

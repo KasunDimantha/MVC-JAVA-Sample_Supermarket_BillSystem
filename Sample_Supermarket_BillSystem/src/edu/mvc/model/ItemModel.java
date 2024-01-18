@@ -19,7 +19,7 @@ public class ItemModel {
     
     public String saveItem(ItemDto itemDto) throws Exception{
         Connection connection = DBConnection.getInstance().getConnection();
-        String sql = "INSER INTO item VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO item VALUES (?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, itemDto.getId());
         statement.setString(2, itemDto.getDescription());
