@@ -38,4 +38,8 @@ public class CustomerController {
         return customerModel.updateCustomer(customerDto);
     }
     
+    public String deleteCustomer(String id) throws Exception{
+        return customerModel.deleteCustomer(id);
+    }
+    
 }

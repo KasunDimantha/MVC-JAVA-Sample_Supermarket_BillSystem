@@ -453,6 +453,17 @@ public class CustomerView extends javax.swing.JFrame {
     }
 
     private void deleteCustomer() {
-        
+        String custId = TextCustId.getText();
+        try {
+            
+            String resp = customerController.deleteCustomer(custId);
+            System.out.println(resp);
+            JOptionPane.showMessageDialog(this, resp);
+            loadCustomers();
+            clear();
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
 }
