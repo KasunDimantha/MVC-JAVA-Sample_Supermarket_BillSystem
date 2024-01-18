@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package edu.mvc.view;
+
 import edu.mvc.dto.ItemDto;
 import edu.mvc.view.CustomerView;
 import edu.mvc.controller.ItemController;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,6 +20,7 @@ import javax.swing.JOptionPane;
 public class ItemView extends javax.swing.JFrame {
 
     private ItemController itemController;
+
     /**
      * Creates new form ItemView
      */
@@ -283,7 +287,7 @@ public class ItemView extends javax.swing.JFrame {
         dto.setPackSize(TextIPackSize.getText());
         dto.setUnitPrice(Double.parseDouble(TextIUnitPrice.getText()));
         dto.setQoh(Integer.parseInt(TextIQOH.getText()));
-        
+
         try {
             String result = itemController.saveItem(dto);
             System.out.println(result);
@@ -295,8 +299,8 @@ public class ItemView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
-    
-    private void clear(){
+
+    private void clear() {
         TextItemID.setText("");
         TextDescription.setText("");
         TextIPackSize.setText("");
@@ -305,6 +309,27 @@ public class ItemView extends javax.swing.JFrame {
     }
 
     private void loadItem() {
-        
+        try {
+            String columns[] = {"Item ID", "Description", "Pack Size", "Unit Price", "QOH"};
+
+            DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+
+            };
+            TableItem.setModel(dtm);
+
+            ArrayList<ItemDto> itemDtos = itemController.loadItem();
+            for (ItemDto itemDto : itemDtos) {
+               Object rowData[] = {itemDto.getId(), itemDto.getDescription(), itemDto.getPackSize(), itemDto.getPackSize(), itemDto.getQoh()} ;
+               dtm.addRow(rowData);
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

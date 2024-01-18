@@ -6,6 +6,7 @@ package edu.mvc.controller;
 
 import edu.mvc.dto.ItemDto;
 import edu.mvc.model.ItemModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,5 +24,9 @@ public class ItemController {
     
     public String saveItem(ItemDto itemDto)throws Exception {
        return itemModel.saveItem(itemDto);
+    }
+    
+    public ArrayList<ItemDto> loadItem() throws Exception {
+        return itemModel.loadItem();
     }
 }
