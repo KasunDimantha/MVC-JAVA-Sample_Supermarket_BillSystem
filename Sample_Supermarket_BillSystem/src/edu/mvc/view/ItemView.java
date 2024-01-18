@@ -333,16 +333,32 @@ public class ItemView extends javax.swing.JFrame {
 
             ArrayList<ItemDto> itemDtos = itemController.loadItem();
             for (ItemDto itemDto : itemDtos) {
-               Object rowData[] = {itemDto.getId(), itemDto.getDescription(), itemDto.getPackSize(), itemDto.getPackSize(), itemDto.getQoh()} ;
-               dtm.addRow(rowData);
+                Object rowData[] = {itemDto.getId(), itemDto.getDescription(), itemDto.getPackSize(), itemDto.getPackSize(), itemDto.getQoh()};
+                dtm.addRow(rowData);
             }
-            
+
         } catch (Exception ex) {
             Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void searchItem() {
-        
+        String itemID = TableItem.getValueAt(TableItem.getSelectedRow(), 0).toString();
+        try {
+
+            ItemDto dto = itemController.searchItem(itemID);
+
+            if (dto != null) {
+                TextItemID.setText(dto.getId());
+                TextDescription.setText(dto.getDescription());
+                TextIPackSize.setText(dto.getPackSize());
+                TextIUnitPrice.setText(dto.getUnitPrice().toString());
+                TextIQOH.setText(dto.getQoh().toString());
+            } else {
+                JOptionPane.showMessageDialog(this, "Item Not Found");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -28,4 +28,10 @@ public class ItemController {
     public ArrayList<ItemDto> loadItem() throws Exception {
         return itemModel.loadItem();
     }
+    
+    public ItemDto searchItem(String id) throws Exception {
+        return itemModel.searchItem(id);
+    }
+    
+    
 }
