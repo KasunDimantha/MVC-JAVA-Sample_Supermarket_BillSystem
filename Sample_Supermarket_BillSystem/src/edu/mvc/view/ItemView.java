@@ -219,7 +219,7 @@ public class ItemView extends javax.swing.JFrame {
     }//GEN-LAST:event_TextIPackSizeActionPerformed
 
     private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed
-        // TODO add your handling code here:
+        updateItem();
     }//GEN-LAST:event_ButtonUpdateActionPerformed
 
     private void ButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSaveActionPerformed
@@ -372,6 +372,26 @@ public class ItemView extends javax.swing.JFrame {
             clear();
         } catch (Exception ex) {
              JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
+    private void updateItem() {
+        ItemDto dto = new ItemDto();
+        
+        dto.setId(TextItemID.getText());
+        dto.setDescription(TextDescription.getText());
+        dto.setPackSize(TextIPackSize.getText());
+        dto.setUnitPrice(Double.parseDouble(TextIUnitPrice.getText()));
+        dto.setQoh(Integer.parseInt(TextIQOH.getText()));
+        
+        try {
+            String resp = itemController.updateItem(dto);
+            JOptionPane.showMessageDialog(this, resp);
+            loadItem();
+            clear();
+        } catch (Exception ex) {
+            Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
 }
