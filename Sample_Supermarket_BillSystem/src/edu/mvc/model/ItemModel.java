@@ -19,6 +19,7 @@ public class ItemModel {
     
     public String saveItem(ItemDto itemDto) throws Exception{
         Connection connection = DBConnection.getInstance().getConnection();
+        
         String sql = "INSERT INTO item VALUES (?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, itemDto.getId());
@@ -74,6 +75,25 @@ public class ItemModel {
             dto.setQoh(Integer.parseInt(rst.getString("QtyOnHand")));
         }
         return dto;
+    }
+    
+    public String updateItem(ItemDto itemDto) throws Exception {
+        Connection connection = DBConnection.getInstance().getConnection();
+        
+        String sql = "UPDATE item SET Description=?, PackSize=?, UnitPrice=?, QtyOnHand=? WHERE ItemCode=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        
+        statement.setString(1, itemDto.getDescription());
+        statement.setString(2, itemDto.getPackSize());
+        statement.setDouble(3, itemDto.getUnitPrice());
+        statement.setInt(4, itemDto.getQoh());
+        statement.setString(5, itemDto.getId());
+        
+        if(statement.executeUpdate() > 0){
+            return "Succesfully Updated";
+        } else {
+            return "Update Fail";
+        }
     }
 
     public String deleteItem(String id) throws Exception {
