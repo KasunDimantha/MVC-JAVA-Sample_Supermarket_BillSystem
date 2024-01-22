@@ -227,7 +227,7 @@ public class ItemView extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonSaveActionPerformed
 
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
-        // TODO add your handling code here:
+        deleteItem();
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void TableItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableItemMouseClicked
@@ -360,5 +360,9 @@ public class ItemView extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void deleteItem() {
+        
     }
 }

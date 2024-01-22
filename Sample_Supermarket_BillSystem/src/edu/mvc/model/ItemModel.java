@@ -76,6 +76,19 @@ public class ItemModel {
         return dto;
     }
 
+    public String deleteItem(String id) throws Exception {
+        Connection connection = DBConnection.getInstance().getConnection();
+        
+        String sql = "DELETE FROM item WHERE ItemCode = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, id);
+        
+        if(statement.executeUpdate() > 0){
+            return "Success";
+        } else {
+            return "Fail";
+        }
+    }
 
 
 
