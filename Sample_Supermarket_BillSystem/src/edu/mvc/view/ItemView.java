@@ -363,6 +363,15 @@ public class ItemView extends javax.swing.JFrame {
     }
 
     private void deleteItem() {
-        
+        try {
+            String itemID = TextItemID.getText();
+            
+            String resp = itemController.deleteItem(itemID);
+            JOptionPane.showMessageDialog(this, resp);
+            loadItem();
+            clear();
+        } catch (Exception ex) {
+             JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
 }

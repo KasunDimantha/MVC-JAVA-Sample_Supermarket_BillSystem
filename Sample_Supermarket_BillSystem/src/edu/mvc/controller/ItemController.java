@@ -33,5 +33,8 @@ public class ItemController {
         return itemModel.searchItem(id);
     }
     
+    public String deleteItem(String id) throws Exception {
+        return itemModel.deleteItem(id);
+    }
     
 }
