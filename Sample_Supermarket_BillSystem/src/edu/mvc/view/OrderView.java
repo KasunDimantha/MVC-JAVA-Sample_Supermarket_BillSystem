@@ -8,9 +8,12 @@ import edu.mvc.controller.CustomerController;
 import edu.mvc.controller.ItemController;
 import edu.mvc.dto.CustomerDto;
 import edu.mvc.dto.ItemDto;
+import edu.mvc.dto.OrderDetailDto;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,13 +23,17 @@ public class OrderView extends javax.swing.JFrame {
 
     private ItemController itemController;
     private CustomerController customerController;
+    private ArrayList<OrderDetailDto> orderDetailDtos;
     /**
      * Creates new form OrderView
      */
     public OrderView() {
         itemController = new ItemController();
         customerController = new CustomerController();
+        orderDetailDtos = new ArrayList<>();
+        
         initComponents();
+        loadTable();
     }
 
     /**
@@ -52,9 +59,9 @@ public class OrderView extends javax.swing.JFrame {
         ButtonSearchItem = new javax.swing.JButton();
         ButtonAdd = new javax.swing.JButton();
         LabelQty = new javax.swing.JLabel();
-        TextDiscount1 = new javax.swing.JTextField();
+        TextQTY = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TableOrder = new javax.swing.JTable();
         LabelCustData5 = new javax.swing.JLabel();
         LabelCustData1 = new javax.swing.JLabel();
         LabelItemData = new javax.swing.JLabel();
@@ -100,13 +107,18 @@ public class OrderView extends javax.swing.JFrame {
         });
 
         ButtonAdd.setText("Add");
+        ButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonAddActionPerformed(evt);
+            }
+        });
 
         LabelQty.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         LabelQty.setText("Quantity");
 
-        TextDiscount1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TextQTY.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TableOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -117,7 +129,7 @@ public class OrderView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TableOrder);
 
         LabelCustData5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -144,7 +156,7 @@ public class OrderView extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(LabelQty, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(TextDiscount1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(TextQTY, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -207,7 +219,7 @@ public class OrderView extends javax.swing.JFrame {
                     .addComponent(TextDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LabelQty, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextDiscount1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TextQTY, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -228,6 +240,10 @@ public class OrderView extends javax.swing.JFrame {
     private void ButtonSearchCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchCustActionPerformed
         searchCustomer();
     }//GEN-LAST:event_ButtonSearchCustActionPerformed
+
+    private void ButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddActionPerformed
+        addToTable();
+    }//GEN-LAST:event_ButtonAddActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,15 +292,15 @@ public class OrderView extends javax.swing.JFrame {
     private javax.swing.JLabel LabelOrderID;
     private javax.swing.JLabel LabelOrderID1;
     private javax.swing.JLabel LabelQty;
+    private javax.swing.JTable TableOrder;
     private javax.swing.JTextField TextCustomerID;
     private javax.swing.JTextField TextDiscount;
-    private javax.swing.JTextField TextDiscount1;
     private javax.swing.JTextField TextItemID;
     private javax.swing.JTextField TextOrderID;
+    private javax.swing.JTextField TextQTY;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
     private void searchItem() {
@@ -320,4 +336,39 @@ public class OrderView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,ex.getMessage());
         }
     }
+
+    private void loadTable() {
+        Object[] column = {"Item Code", "QTY", "Discount"};
+        
+        DefaultTableModel dtm = new DefaultTableModel(column, 0){
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+            
+        };
+        TableOrder.setModel(dtm);
+        
+    }
+
+    private void addToTable() {
+        OrderDetailDto orderDetailDto = new OrderDetailDto();
+        orderDetailDto.setOrderId(TextOrderID.getText());
+        orderDetailDto.setItemCode(TextItemID.getText());
+        orderDetailDto.setDiscount(Integer.parseInt(TextDiscount.getText()));
+        orderDetailDto.setQty(Integer.parseInt(TextQTY.getText()));
+        
+        orderDetailDtos.add(orderDetailDto);
+        
+        Object[] rowData = {orderDetailDto.getItemCode(), orderDetailDto.getQty(), orderDetailDto.getDiscount()};
+        DefaultTableModel dtm = (DefaultTableModel) TableOrder.getModel();
+        
+        dtm.addRow(rowData);
+        
+    }
+
+    
+
+
 }
