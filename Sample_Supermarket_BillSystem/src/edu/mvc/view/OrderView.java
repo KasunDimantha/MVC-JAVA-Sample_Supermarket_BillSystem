@@ -4,7 +4,9 @@
  */
 package edu.mvc.view;
 
+import edu.mvc.controller.CustomerController;
 import edu.mvc.controller.ItemController;
+import edu.mvc.dto.CustomerDto;
 import edu.mvc.dto.ItemDto;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,11 +19,13 @@ import javax.swing.JOptionPane;
 public class OrderView extends javax.swing.JFrame {
 
     private ItemController itemController;
+    private CustomerController customerController;
     /**
      * Creates new form OrderView
      */
     public OrderView() {
         itemController = new ItemController();
+        customerController = new CustomerController();
         initComponents();
     }
 
@@ -51,7 +55,7 @@ public class OrderView extends javax.swing.JFrame {
         TextDiscount1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        LabelCustData = new javax.swing.JLabel();
+        LabelCustData5 = new javax.swing.JLabel();
         LabelCustData1 = new javax.swing.JLabel();
         LabelItemData = new javax.swing.JLabel();
 
@@ -82,6 +86,11 @@ public class OrderView extends javax.swing.JFrame {
         TextDiscount.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         ButtonSearchCust.setText("Search");
+        ButtonSearchCust.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSearchCustActionPerformed(evt);
+            }
+        });
 
         ButtonSearchItem.setText("Search");
         ButtonSearchItem.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +119,7 @@ public class OrderView extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        LabelCustData.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        LabelCustData5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         LabelCustData1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -160,7 +169,7 @@ public class OrderView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ButtonSearchCust)
                         .addGap(18, 18, 18)
-                        .addComponent(LabelCustData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(LabelCustData5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -185,7 +194,7 @@ public class OrderView extends javax.swing.JFrame {
                         .addComponent(LabelOrderID1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(TextCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(ButtonSearchCust))
-                    .addComponent(LabelCustData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LabelCustData5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelItemID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,6 +224,10 @@ public class OrderView extends javax.swing.JFrame {
     private void ButtonSearchItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchItemActionPerformed
         searchItem();
     }//GEN-LAST:event_ButtonSearchItemActionPerformed
+
+    private void ButtonSearchCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchCustActionPerformed
+        searchCustomer();
+    }//GEN-LAST:event_ButtonSearchCustActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,8 +268,8 @@ public class OrderView extends javax.swing.JFrame {
     private javax.swing.JButton ButtonAdd;
     private javax.swing.JButton ButtonSearchCust;
     private javax.swing.JButton ButtonSearchItem;
-    private javax.swing.JLabel LabelCustData;
     private javax.swing.JLabel LabelCustData1;
+    private javax.swing.JLabel LabelCustData5;
     private javax.swing.JLabel LabelDiscount;
     private javax.swing.JLabel LabelItemData;
     private javax.swing.JLabel LabelItemID;
@@ -288,6 +301,23 @@ public class OrderView extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(OrderView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
+    private void searchCustomer() {
+        try {
+            String id = TextCustomerID.getText();
+            
+            CustomerDto custonerDto = customerController.searchCustomer(id);
+            
+            if(custonerDto != null) {
+                LabelCustData5.setText(custonerDto.getTitle() + " " + custonerDto.getName() +" | "+ custonerDto.getAddress() +" " + custonerDto.getProvince());
+            } else {
+                JOptionPane.showMessageDialog(this, "Customer Not Found");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(OrderView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,ex.getMessage());
         }
     }
 }

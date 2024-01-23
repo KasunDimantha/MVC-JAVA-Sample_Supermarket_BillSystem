@@ -74,7 +74,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="ButtonSearchCust" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="LabelCustData" max="32767" attributes="0"/>
+                      <Component id="LabelCustData5" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -107,7 +107,7 @@
                       <Component id="TextCustomerID" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="ButtonSearchCust" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="LabelCustData" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="LabelCustData5" min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -214,6 +214,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Search"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonSearchCustActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ButtonSearchItem">
       <Properties>
@@ -264,7 +267,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="LabelCustData">
+    <Component class="javax.swing.JLabel" name="LabelCustData5">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
