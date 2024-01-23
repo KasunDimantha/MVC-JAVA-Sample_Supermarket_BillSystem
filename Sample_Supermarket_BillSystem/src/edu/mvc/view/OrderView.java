@@ -365,7 +365,14 @@ public class OrderView extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel) TableOrder.getModel();
         
         dtm.addRow(rowData);
-        
+        clearItemData();
+    }
+
+    private void clearItemData() {
+        TextItemID.setText("");
+        TextDiscount.setText("");
+        TextQTY.setText("");
+        LabelItemData.setText("");
     }
 
     
