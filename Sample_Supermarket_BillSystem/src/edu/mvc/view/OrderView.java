@@ -6,10 +6,14 @@ package edu.mvc.view;
 
 import edu.mvc.controller.CustomerController;
 import edu.mvc.controller.ItemController;
+import edu.mvc.controller.OrderController;
 import edu.mvc.dto.CustomerDto;
 import edu.mvc.dto.ItemDto;
 import edu.mvc.dto.OrderDetailDto;
+import edu.mvc.dto.OrderDto;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,6 +28,7 @@ public class OrderView extends javax.swing.JFrame {
     private ItemController itemController;
     private CustomerController customerController;
     private ArrayList<OrderDetailDto> orderDetailDtos;
+    private OrderController orderController;
     /**
      * Creates new form OrderView
      */
@@ -31,6 +36,7 @@ public class OrderView extends javax.swing.JFrame {
         itemController = new ItemController();
         customerController = new CustomerController();
         orderDetailDtos = new ArrayList<>();
+        orderController = new OrderController();
         
         initComponents();
         loadTable();
@@ -63,8 +69,8 @@ public class OrderView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TableOrder = new javax.swing.JTable();
         LabelCustData5 = new javax.swing.JLabel();
-        LabelCustData1 = new javax.swing.JLabel();
         LabelItemData = new javax.swing.JLabel();
+        ButtonPlaseOrder = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,7 +139,12 @@ public class OrderView extends javax.swing.JFrame {
 
         LabelCustData5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        LabelCustData1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ButtonPlaseOrder.setText("Plase Order");
+        ButtonPlaseOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonPlaseOrderActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,16 +189,14 @@ public class OrderView extends javax.swing.JFrame {
                         .addComponent(LabelOrderID1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(TextCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ButtonSearchCust)
-                        .addGap(18, 18, 18)
-                        .addComponent(LabelCustData5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(12, 12, 12)
+                        .addComponent(LabelCustData5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ButtonPlaseOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(340, 340, 340)
-                    .addComponent(LabelCustData1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(16, 16, 16)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,12 +231,9 @@ public class OrderView extends javax.swing.JFrame {
                     .addComponent(TextQTY, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(134, 134, 134)
-                    .addComponent(LabelCustData1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(287, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ButtonPlaseOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -244,6 +250,10 @@ public class OrderView extends javax.swing.JFrame {
     private void ButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddActionPerformed
         addToTable();
     }//GEN-LAST:event_ButtonAddActionPerformed
+
+    private void ButtonPlaseOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPlaseOrderActionPerformed
+        placeOrder();
+    }//GEN-LAST:event_ButtonPlaseOrderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,9 +292,9 @@ public class OrderView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAdd;
+    private javax.swing.JButton ButtonPlaseOrder;
     private javax.swing.JButton ButtonSearchCust;
     private javax.swing.JButton ButtonSearchItem;
-    private javax.swing.JLabel LabelCustData1;
     private javax.swing.JLabel LabelCustData5;
     private javax.swing.JLabel LabelDiscount;
     private javax.swing.JLabel LabelItemData;
@@ -373,6 +383,24 @@ public class OrderView extends javax.swing.JFrame {
         TextDiscount.setText("");
         TextQTY.setText("");
         LabelItemData.setText("");
+    }
+
+    private void placeOrder() {
+        try {
+            OrderDto orderDto = new OrderDto();
+            orderDto.setCustID(TextCustomerID.getText());
+            orderDto.setOrderId(TextOrderID.getText());
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String data = sdf.format(new Date());
+            orderDto.setOrderDate(data);
+            
+            String resp = orderController.placeOrder(orderDto, orderDetailDtos);
+            JOptionPane.showMessageDialog(this, resp);
+        } catch (Exception ex) {
+            Logger.getLogger(OrderView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
 
     
